@@ -4,6 +4,12 @@ class LinuxProvision < GenericProvision
 
   USER_LOCAL_BIN = "/usr/local/bin"
 
+  def initialize config_file_name=".linux_provision.json", scripts_file_names=[]
+    scripts_file_names << (File.expand_path("linux_provision_scripts.sh", File.dirname(__FILE__)))
+
+    super
+  end
+
   def postgres_create_schemas
     env[:postgres][:app_schemas].each do |schema|
       run(server_info, "postgres_create_schema", env.merge(schema: schema))
@@ -15,6 +21,13 @@ class LinuxProvision < GenericProvision
       run(server_info, "mysql_create_schema", env.merge(schema: schema))
     end
   end
+
+  def create_postgres_user app_user, schema
+    run("create_postgres_user", binding)
+  end
+
+    # execute(server_info) { "/usr/local/bin/dropuser #{app_user}" }
+    # execute(server_info) { "/usr/local/bin/dropdb #{schema}" }
 
   private
 

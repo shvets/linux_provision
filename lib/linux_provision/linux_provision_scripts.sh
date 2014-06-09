@@ -32,6 +32,8 @@ source $USER_HOME/.rvm/scripts/rvm
 ##############################
 [ruby]
 
+USER_HOME="#{node.home}"
+
 source $USER_HOME/.rvm/scripts/rvm
 
 rvm install ruby-1.9.3
@@ -157,6 +159,8 @@ mysql -h $HOST_NAME -u $MYSQL_USER -p"$MYSQL_PASSWORD" -e "create database $SCHE
 
 ##############################
 [project]
+
+USER_HOME="#{node.home}"
 
 APP_HOME='$USER_HOME/linux_provision'
 

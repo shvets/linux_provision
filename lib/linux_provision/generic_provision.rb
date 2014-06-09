@@ -10,12 +10,16 @@ class GenericProvision
 
   attr_reader :interpolator, :env, :script_list, :server_info
 
-  def initialize config_file_name, scripts_file_name
+  def initialize config_file_name, scripts_file_names
     @interpolator = TextInterpolator.new
 
     @env = read_config(config_file_name)
 
-    @script_list = scripts(File.expand_path(scripts_file_name, File.dirname(__FILE__)))
+    @script_list = {}
+
+    scripts_file_names.each do |name|
+      @script_list.merge!(scripts(name))
+    end
 
     # create_script_methods parent, self
 
