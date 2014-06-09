@@ -162,13 +162,13 @@ mysql -h $HOST_NAME -u $MYSQL_USER -p"$MYSQL_PASSWORD" -e "create database $SCHE
 
 USER_HOME="#{node.home}"
 
-APP_HOME='$USER_HOME/linux_provision'
+APP_HOME="#{project.home}"
 
 cd $APP_HOME
 
 source $USER_HOME/.rvm/scripts/rvm
 
-rvm use 1.9.3@linux_provision
+rvm use #{project.ruby_version}@#{project.gemset}
 
 bundle install --without=production
 

@@ -8,6 +8,12 @@
     "remote": true
   },
 
+  "project": {
+    "home": "#{node.home}/linux_provision",
+    "ruby_version": "1.9.3",
+    "gemset": "linux_provision"
+  },
+
   "postgres": {
     "hostname": "localhost", "user": "postgres", "password": "postgres",
     "app_user": "ruby_dev",

@@ -5,7 +5,7 @@ class LinuxProvision < GenericProvision
   USER_LOCAL_BIN = "/usr/local/bin"
 
   def initialize config_file_name=".linux_provision.json", scripts_file_names=[]
-    scripts_file_names << (File.expand_path("linux_provision_scripts.sh", File.dirname(__FILE__)))
+    scripts_file_names.unshift(File.expand_path("linux_provision_scripts.sh", File.dirname(__FILE__))) # make it first
 
     super
   end

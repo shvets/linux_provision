@@ -37,24 +37,26 @@ class LinuxInstall < Thor
     invoke :mysql_create_schemas
 
     # invoke :selenium
+
+    invoke :project
   end
 
-  desc "postgres_create", "Initializes postgres"
-  def postgres_create
-    invoke :postgres_create_user
-    invoke :postgres_create_schemas
-  end
-
-  desc "postgres_drop", "Drops postgres project schemas"
-  def postgres_drop
-    installer.postgres_drop env["app_user"], env["app_schemas"]
-  end
-
-  desc "mysql_create", "Initializes mysql"
-  def mysql_create
-    invoke :mysql_create_user
-    invoke :mysql_create_schemas
-  end
+  # desc "postgres_create", "Initializes postgres"
+  # def postgres_create
+  #   invoke :postgres_create_user
+  #   invoke :postgres_create_schemas
+  # end
+  #
+  # desc "postgres_drop", "Drops postgres project schemas"
+  # def postgres_drop
+  #   installer.postgres_drop env["app_user"], env["app_schemas"]
+  # end
+  #
+  # desc "mysql_create", "Initializes mysql"
+  # def mysql_create
+  #   invoke :mysql_create_user
+  #   invoke :mysql_create_schemas
+  # end
 
   private
 
