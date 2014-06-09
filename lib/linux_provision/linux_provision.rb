@@ -15,6 +15,7 @@ class LinuxProvision < GenericProvision
       run(server_info, "mysql_create_schema", env.merge(schema: schema))
     end
   end
+
   private
 
   def method_missing(method, *args, &block)
