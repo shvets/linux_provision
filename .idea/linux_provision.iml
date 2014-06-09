@@ -81,7 +81,6 @@
     <orderEntry type="jdk" jdkName="RVM: ruby-1.9.3-p545 [linux_provision]" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.6.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="debugger-ruby_core_source (v1.3.5, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.2.5, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="file_utils (v1.0.7, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gemcutter (v0.7.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
@@ -91,15 +90,11 @@
     <orderEntry type="library" scope="PROVIDED" name="metaclass (v0.0.4, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mocha (v1.1.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-ssh (v2.9.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rake (v10.3.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec (v3.0.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.0.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.0.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v3.0.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-support (v3.0.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="ruby-debug-base19x (v0.11.30.pre15, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="ruby-debug-ide (v0.4.23.beta1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="script_executor (v1.4.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="text-interpolator (v1.1.4, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v0.19.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
   </component>

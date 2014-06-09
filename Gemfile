@@ -16,10 +16,11 @@ group :test do
   gem "rspec"
   gem "mocha"
 end
-group :debug do
-  gem "ruby-debug-base19x", "0.11.30.pre15"
-  gem "ruby-debug-ide", "0.4.23.beta1"
-end
+
+# group :debug do
+#   gem "ruby-debug-base19x", "0.11.30.pre15"
+#   gem "ruby-debug-ide", "0.4.23.beta1"
+# end
 
 
 

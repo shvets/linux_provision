@@ -1,13 +1,12 @@
 {
   "node": {
-    "domain": "127.0.0.1",
+    "domain": "22.22.22.22",
     "user": "vagrant",
     "password": "vagrant",
+    "home": "/home/vagrant",
     "port": "2222",
     "remote": true
   },
-
-  "home": "/home/vagrant",
 
   "postgres": {
     "hostname": "localhost", "user": "postgres", "password": "postgres",

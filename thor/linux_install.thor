@@ -30,7 +30,30 @@ class LinuxInstall < Thor
     invoke :postgres
     invoke :mysql
 
+    invoke :postgres_create_user
+    invoke :postgres_create_schemas
+
+    invoke :mysql_create_user
+    invoke :mysql_create_schemas
+
     # invoke :selenium
+  end
+
+  desc "postgres_create", "Initializes postgres"
+  def postgres_create
+    invoke :postgres_create_user
+    invoke :postgres_create_schemas
+  end
+
+  desc "postgres_drop", "Drops postgres project schemas"
+  def postgres_drop
+    installer.postgres_drop env["app_user"], env["app_schemas"]
+  end
+
+  desc "mysql_create", "Initializes mysql"
+  def mysql_create
+    invoke :mysql_create_user
+    invoke :mysql_create_schemas
   end
 
   private
@@ -58,19 +81,12 @@ class LinuxInstall < Thor
   # def qt
   #   installer.qt_install
   # end
-  #
-  # desc "init_launch_agent", "Inits launch agent"
-  # def init_launch_agent
-  #   installer.init_launch_agent
-  # end
-  #
+
   # desc "mysql", "Installs mysql server"
   # def mysql
   #   installer.mysql_install
   # end
-  #
-  # # brew uninstall mysql
-  #
+
   # desc "mysql_restart", "Restarts mysql server"
   # def mysql_restart
   #   installer.mysql_restart
@@ -120,25 +136,12 @@ class LinuxInstall < Thor
   # def selenium_restart
   #   installer.selenium_restart
   # end
-  #
-  # desc "postgres_create", "Initializes postgres project schemas"
-  # def postgres_create
-  #   installer.postgres_create env["app_user"], env["app_schemas"]
-  # end
-  #
-  # desc "postgres_drop", "Drops postgres project schemas"
-  # def postgres_drop
-  #   installer.postgres_drop env["app_user"], env["app_schemas"]
-  # end
+
   #
   # desc "postgres_test", "Test postgres schemas"
   # def postgres_test
   #   installer.postgres_test env["app_user"]
   # end
   #
-  # desc "test", "test"
-  # def test
-  #   puts "test"
-  # end
 
 end

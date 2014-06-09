@@ -4,12 +4,17 @@ class LinuxProvision < GenericProvision
 
   USER_LOCAL_BIN = "/usr/local/bin"
 
-  def create_postgres_schema
-    p env
-
-    run(server_info, "create_postgres_schema", env.merge(schema: 'ruby_dev_test'))
+  def postgres_create_schemas
+    env[:postgres][:app_schemas].each do |schema|
+      run(server_info, "postgres_create_schema", env.merge(schema: schema))
+    end
   end
 
+  def mysql_create_schemas
+    env[:mysql][:app_schemas].each do |schema|
+      run(server_info, "mysql_create_schema", env.merge(schema: schema))
+    end
+  end
   private
 
   def method_missing(method, *args, &block)
