@@ -16,38 +16,28 @@ class LinuxInstall < Thor
     installer.test
   end
 
+  desc "all", "Installs all required packages"
+  def all
+    invoke :prepare
+
+    invoke :rvm
+
+    invoke :ruby
+
+    invoke :git
+    invoke :node
+    invoke :jenkins
+    invoke :postgres
+    invoke :mysql
+
+    # invoke :selenium
+  end
+
   private
 
   def method_missing(method, *args, &block)
     installer.send(method, *args, &block)
   end
-
-  # desc "all", "Installs all required packages"
-  # def all
-  #   invoke :prepare
-  #
-  #   invoke :npm
-  #
-  #   # invoke :rvm
-  #   # invoke :qt
-  #
-  #   #invoke :mysql
-  #   #invoke :mysql_restart
-  #
-  #   # invoke :init_launch_agent
-  #   #
-  #   # invoke :postgres
-  #   # invoke :postgres_restart
-  #   #
-  #   # invoke :jenkins
-  #   # invoke :jenkins_restart
-  #   #
-  #   # invoke :selenium
-  #   #
-  #   # invoke :ruby
-  #   #
-  #   # invoke :postgres_create
-  # end
 
   # desc "prepare", "prepare"
   # def prepare

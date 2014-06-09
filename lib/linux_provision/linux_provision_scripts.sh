@@ -29,12 +29,6 @@ sudo chown -R vagrant /opt/vagrant_ruby
 source $USER_HOME/.rvm/scripts/rvm
 
 
-#######################################
-[node]
-
-sudo apt-get install -y node
-
-
 ##############################
 [ruby]
 
@@ -47,6 +41,12 @@ rvm install ruby-1.9.3
 [git]
 
 sudo apt-get install -y  git
+
+
+#######################################
+[node]
+
+sudo apt-get install -y node
 
 
 ##############################
