@@ -88,6 +88,7 @@ sudo apt-get -y install mysql-server
 PATH=$PATH:/usr/local/bin
 
 APP_USER='#{postgres.app_user}'
+APP_PASSWORD='#{postgres.app_password}'
 
 sudo -u postgres psql -c "CREATE USER $APP_USER WITH PASSWORD '$APP_USER'"
 #createuser -s -d -r $APP_USER
@@ -158,19 +159,51 @@ mysql -h $HOST_NAME -u $MYSQL_USER -p"$MYSQL_PASSWORD" -e "create database $SCHE
 
 
 ##############################
-[project]
+# http://www.labelmedia.co.uk/blog/setting-up-selenium-server-on-a-headless-jenkins-ci-build-machine.html
+[selenium]
 
-USER_HOME="#{node.home}"
+wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
 
-APP_HOME="#{project.home}"
+sudo mkdir /var/lib/selenium
 
-cd $APP_HOME
+sudo mv selenium-server-standalone-2.42.2.jar /var/lib/selenium
 
-source $USER_HOME/.rvm/scripts/rvm
+cd /var/lib/selenium
 
-rvm use #{project.ruby_version}@#{project.gemset}
+sudo ln -s selenium-server-standalone-2.42.2.jar selenium-server.jar
 
-bundle install --without=production
+sudo apt-get install -y xvfb
+sudo update-rc.d xvfb defaults 10
 
-# rake db:migrate
-# rails s
+sudo apt-get install -y firefox
+
+# export DISPLAY=":99" && java -jar /var/lib/selenium/selenium-server.jar
+
+
+##############################
+[selenium2]
+cat > xvfb <<END
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "`basename $0` {start|stop}"
+  exit
+fi
+
+case "$1" in
+  start)
+    /usr/bin/Xvfb :99 -ac -screen 0 1024x768x8 &
+    ;;
+
+  stop)
+    killall Xvfb
+    ;;
+esac
+END
+
+#sudo mv xvfb /etc/init.d/xvfb
+
+#sudo chmod 755 /etc/init.d/xvfb
+
+/etc/init.d/xvfb start
+

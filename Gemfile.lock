@@ -9,9 +9,6 @@ GEM
       file_utils
     highline (1.6.21)
     json_pure (1.8.1)
-    metaclass (0.0.4)
-    mocha (1.1.0)
-      metaclass (~> 0.0.1)
     net-ssh (2.9.1)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
@@ -39,7 +36,6 @@ DEPENDENCIES
   gemcutter (~> 0.7)
   gemspec_deps_gen (~> 1.1)
   json_pure (~> 1.8)
-  mocha
   rspec
   script_executor (~> 1.4)
   text-interpolator (~> 1.0)

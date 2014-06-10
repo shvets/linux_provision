@@ -6,7 +6,7 @@ class LinuxInstall < Thor
   attr_reader :installer
 
   def initialize *params
-    @installer = LinuxProvision.new
+    @installer = LinuxProvision.new ".linux_provision.json", ["thor/demo_scripts.sh"]
 
     super *params
   end

@@ -1,0 +1,7 @@
+#!/usr/bin/env rake
+
+include Rake::DSL
+
+require "./app"
+
+require "sinatra/activerecord/rake"
