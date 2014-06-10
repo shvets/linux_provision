@@ -13,7 +13,7 @@ source $USER_HOME/.rvm/scripts/rvm
 
 rvm use #{project.ruby_version}@#{project.gemset}
 
-bundle install --without=production
+bundle
 
 rake db:migrate
 
