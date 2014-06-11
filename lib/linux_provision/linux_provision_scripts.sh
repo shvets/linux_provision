@@ -8,6 +8,7 @@ echo "test"
 
 ##############################
 [prepare]
+# Updates linux core packages
 
 sudo apt-get update
 
@@ -18,6 +19,8 @@ sudo apt-get install -y subversion
 
 ##############################
 [rvm]
+# Installs rvm
+
 #PATH=$PATH:/usr/local/bin
 
 USER_HOME="#{node.home}"
@@ -31,6 +34,7 @@ source $USER_HOME/.rvm/scripts/rvm
 
 ##############################
 [ruby]
+# Installs ruby
 
 USER_HOME="#{node.home}"
 
@@ -41,23 +45,28 @@ rvm install ruby-1.9.3
 
 ##############################
 [git]
+# Installs git
 
 sudo apt-get install -y  git
 
 
 ##############################
 [node]
+# Installs node
 
 sudo apt-get install -y node
 
 
 ##############################
 [jenkins]
+# Installs jenkins
+
 sudo apt-get install -y jenkins
 
 
 ##############################
 [postgres]
+# Installs postgres server
 
 sudo apt-get install -y postgresql-client
 sudo apt-get install -y libpq-dev
@@ -66,6 +75,7 @@ sudo apt-get install -y postgresql
 
 ##############################
 [mysql]
+# Installs mysql server
 
 MYSQL_PASSWORD='#{mysql.password}'
 
@@ -161,6 +171,7 @@ mysql -h $HOST_NAME -u $MYSQL_USER -p"$MYSQL_PASSWORD" -e "create database $SCHE
 ##############################
 # http://www.labelmedia.co.uk/blog/setting-up-selenium-server-on-a-headless-jenkins-ci-build-machine.html
 [selenium]
+# Installs selenium server
 
 wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
 

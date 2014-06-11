@@ -21,27 +21,19 @@ class GenericProvision
       @script_list.merge!(scripts(name))
     end
 
-    # create_script_methods parent, self
+    create_script_methods
 
     @server_info = env[:node] ? env[:node] : {}
   end
 
-  # def create_script_methods parent, current
-  #   parent_metaclass = parent.singleton_class
-  #   current_metaclass = current.singleton_class
-  #
-  #   current.script_list.keys.each do |name|
-  #     # create methods on parent, e.g. thor or rake file
-  #     parent_metaclass.send(:define_method, name.to_sym) do |*args, &block|
-  #       current.send(name, args, block)
-  #     end
-  #
-  #     # create methods on installer
-  #     current_metaclass.send(:define_method, name.to_sym) do |_, _|
-  #       current.send :run, current.server_info, name.to_s, current.env
-  #     end
-  #   end
-  # end
+
+  def create_script_methods
+    script_list.keys.each do |name|
+      singleton_class.send(:define_method, name.to_sym) do
+        self.send :run, server_info, name.to_s, env
+      end
+    end
+  end
 
   protected
 

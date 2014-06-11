@@ -2,6 +2,7 @@
 
 ##############################
 [project]
+# Installs demo sinatra project
 
 USER_HOME="#{node.home}"
 
@@ -20,6 +21,7 @@ rake db:migrate
 
 ##############################
 [rackup]
+# Starts sinatra demo application
 
 USER_HOME="#{node.home}"
 
