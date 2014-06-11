@@ -32,11 +32,3 @@ cd $APP_HOME
 source $USER_HOME/.rvm/scripts/rvm
 
 rackup
-
-##############################
-[docker]
-# Installs docker
-
-sudo apt-get update
-sudo apt-get install linux-image-generic-lts-raring linux-headers-generic-lts-raring
-sudo reboot

@@ -35,11 +35,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.box = "base"
   config.vm.box = "precise64"
 
-  config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
-    v.cpus = 2
-  end
-
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -157,7 +152,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Make sure the correct containers are running
   # every time we start the VM.
   # config.vm.provision "shell", run: "always", inline: $start
-
-  # Install latest docker
-  config.vm.provision "docker"
 end
