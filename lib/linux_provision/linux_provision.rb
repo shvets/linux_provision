@@ -29,16 +29,6 @@ class LinuxProvision < GenericProvision
     # execute(server_info) { "/usr/local/bin/dropuser #{app_user}" }
     # execute(server_info) { "/usr/local/bin/dropdb #{schema}" }
 
-  private
-
-  def method_missing(method, *args, &block)
-    run(server_info, method.to_s, env)
-  end
-
-  # def test
-  #   run(server_info, "test", env)
-  # end
-
   # def prepare
   #   env['password'] = ask_password("Enter password for #{env[:node][:user]}: ")
   #
