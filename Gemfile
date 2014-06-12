@@ -21,5 +21,9 @@ group :debug do
   gem "ruby-debug-ide", "0.4.23.beta1"
 end
 
+group "presentation" do
+  gem "showoff"
+end
+
 
 

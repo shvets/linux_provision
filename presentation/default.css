@@ -1,0 +1,59 @@
+/* custom css and js files included at the top level of your presentation will
+ * will be included in your presentation */
+
+/*.body {*/
+  /*color: red;*/
+/*}*/
+
+/*.title-slide h1 {*/
+  /*color: red;*/
+/*}*/
+
+.content {
+    color: black;
+    font-family: helvetica, arial;
+    font-size: 10px;
+}
+
+h1, h2 {
+    color: rgb(79, 180, 226);
+    font-family: Georgia;
+}
+/*.content::after {*/
+    /*position: absolute;*/
+    /*right: 120px;*/
+    /*bottom: 120px;*/
+    /*content: url(jay_small.png);*/
+/*}*/
+
+/*#preso, .slide {*/
+    /*background-color: #DDD;*/
+    /*width: 1500px;*/
+    /*height: 1024px;*/
+/*}*/
+
+/*#footer {*/
+    /*width: 1500px;*/
+/*}*/
+
+/*.slide .content h1 {*/
+    /*align: left;*/
+    /*font-size: 40px;*/
+    /*font-weight: bold;*/
+/*}*/
+
+/*#intro .content > ul {*/
+    /*padding-top: 150px;*/
+    /*list-style: none outside none;*/
+/*}*/
+
+/*.slide .content ul li {*/
+    /*text-align: left;*/
+    /*padding: 5px;*/
+    /*font-size: 30px;*/
+    /*list-style: inherit;*/
+/*}*/
+
+/*.slide .content p {*/
+    /*margin: 0;*/
+/*}*/

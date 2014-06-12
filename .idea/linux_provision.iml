@@ -197,16 +197,30 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="RVM: ruby-1.9.3-p545 [linux_provision]" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="bundler (v1.6.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="addressable (v2.3.6, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="blankslate (v2.1.2.4, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bundler (v1.6.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="daemons (v1.1.9, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debugger-ruby_core_source (v1.3.5, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.2.5, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="em-websocket (v0.3.8, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="eventmachine (v1.0.3, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="file_utils (v1.0.7, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gemcutter (v0.7.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gemspec_deps_gen (v1.1.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="gli (v2.11.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="highline (v1.6.21, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="htmlentities (v4.3.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="json (v1.8.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json_pure (v1.8.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mini_portile (v0.6.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-ssh (v2.9.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.6.2.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="parslet (v1.6.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack (v1.5.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack-protection (v1.5.3, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v10.3.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="redcarpet (v3.1.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec (v3.0.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.0.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.0.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
@@ -215,8 +229,13 @@
     <orderEntry type="library" scope="PROVIDED" name="ruby-debug-base19x (v0.11.30.pre15, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-debug-ide (v0.4.23.beta1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="script_executor (v1.4.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="showoff (v0.9.8.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sinatra (v1.4.5, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sinatra-websocket (v0.3.0, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="text-interpolator (v1.1.4, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="thin (v1.6.2, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v0.19.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tilt (v1.4.1, RVM: ruby-1.9.3-p545 [linux_provision]) [gem]" level="application" />
   </component>
 </module>
 

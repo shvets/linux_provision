@@ -1,0 +1,23 @@
+{
+  "name": "Virtualization for your next ruby project",
+  "description": "Virtualization for your next ruby project",
+  "author": "Alexander Shvets",
+  "templates" : {
+    "special" : "simple.tpl"
+  },
+  "pause_msg": "Paused !!!",
+  "markdown" : "redcarpet",
+  "redcarpet": {
+    "fenced_code_blocks": true,
+    "autolink": true,
+    "smartypants": true,
+    "gh_blockcode": true,
+    "lax_spacing": true
+  },
+  "sections": [
+    {"section":"vagrant"},
+    {"section":"provision"},
+    {"section":"docker"},
+    {"section":"conclusion"}
+  ]
+}
