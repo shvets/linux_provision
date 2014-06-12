@@ -15,21 +15,16 @@ sudo apt-get update
 sudo apt-get install -y curl
 sudo apt-get install -y g++
 sudo apt-get install -y subversion
+sudo apt-get install -y git
 
 
 ##############################
 [rvm]
 # Installs rvm
 
-#PATH=$PATH:/usr/local/bin
-
-USER_HOME="#{node.home}"
-
 curl -L https://get.rvm.io | bash
 
 sudo chown -R vagrant /opt/vagrant_ruby
-
-source $USER_HOME/.rvm/scripts/rvm
 
 
 ##############################
@@ -41,13 +36,6 @@ USER_HOME="#{node.home}"
 source $USER_HOME/.rvm/scripts/rvm
 
 rvm install ruby-1.9.3
-
-
-##############################
-[git]
-# Installs git
-
-sudo apt-get install -y  git
 
 
 ##############################

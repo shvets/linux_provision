@@ -44,13 +44,6 @@ vagrant package --vagrantfile Vagrantfile --output linux_provision.box
 ## Docker
 
 
-docker build -t demo .
-
-
-
-
-
-
 docker is an open-source project that makes creating and managing Linux containers really easy. 
 Containers are like extremely lightweight VMs – they allow code to run in isolation from other containers 
 but safely share the machine’s resources, all without the overhead of a hypervisor.
@@ -62,7 +55,6 @@ the appropriate number of CoreOS hosts. When these containers start, they can si
 to start sending them traffic.
 
 
-
 ## Installation
 
 * Download and install VirtualBox for OSX
@@ -71,12 +63,10 @@ https://www.virtualbox.org/wiki/Downloads
 
 * Install boot2docker and docker via homebrew:
 
-
 ```bash
 brew install boot2docker
-
-brew install docker
 ```
+Docker will be installed as an dependency.
 
 Initialize boot2docker virtual machine:
 
@@ -84,11 +74,16 @@ Initialize boot2docker virtual machine:
 boot2docker init
 ```
 
-Start the docker daemon:
+Update .bash_profile file:
+
 
 ```bash
 export DOCKER_HOST=tcp://127.0.0.1:4243
+```
 
+Start the docker daemon:
+
+```bash
 boot2docker up
 ```
 
@@ -98,7 +93,7 @@ or down:
 boot2docker down
 ```
 
-or ssh:
+ssh it:
 
 ```bash
 boot2docker ssh
@@ -115,26 +110,33 @@ docker pull ubuntu
 docker pull centos
 ```
 
-Run:
+Run and test as separate command:
 
 ```bash
-docker run ubuntu /bin/echo hello world
+docker run -t -i ubuntu /bin/bash
+```
+
+and interactively:
+
+
+```bash
 docker run -t -i ubuntu /bin/bash
 ```
 
 ```bash
-docker build -t ashvets/centos-node-hello .
+docker build -t demo docker/demo
 ```
 
-
-
+```bash
 docker run -p 49160:8080 -d busybox
+```
 
 
 ## Links
 
-http://www.talkingquickly.co.uk/2014/06/rails-development-environment-with-vagrant-and-docker/   
+http://steveltn.me/blog/2014/03/15/deploy-rails-applications-using-docker/
+http://www.talkingquickly.co.uk/2014/06/rails-development-environment-with-vagrant-and-docker
 https://github.com/TalkingQuickly/docker_rails_dev_env/
 
-https://coreos.com/docs/launching-containers/building/getting-started-with-docker/
+https://coreos.com/docs/launching-containers/building/getting-started-with-docker
 http://docs.docker.io/installation/binaries/#dockergroup
