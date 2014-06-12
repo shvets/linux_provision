@@ -15,9 +15,9 @@
     "lax_spacing": true
   },
   "sections": [
-    {"section":"01-vagrant"},
-    {"section":"02-provision"},
-    {"section":"03-docker"},
-    {"section":"04-conclusion"}
+//    {"section":"01-vagrant"},
+//    {"section":"02-provision"},
+    {"section":"03-docker"}
+//    {"section":"04-conclusion"}
   ]
 }

@@ -130,13 +130,3 @@ docker build -t demo docker/demo
 ```bash
 docker run -p 49160:8080 -d busybox
 ```
-
-
-## Links
-
-http://steveltn.me/blog/2014/03/15/deploy-rails-applications-using-docker/
-http://www.talkingquickly.co.uk/2014/06/rails-development-environment-with-vagrant-and-docker
-https://github.com/TalkingQuickly/docker_rails_dev_env/
-
-https://coreos.com/docs/launching-containers/building/getting-started-with-docker
-http://docs.docker.io/installation/binaries/#dockergroup

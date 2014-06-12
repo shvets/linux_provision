@@ -1,67 +1,20 @@
-!SLIDE subsection
+!SLIDE
 
-# Subsection Slide #
+## Introduction
 
 !SLIDE
 
-# Code Slide #
+## Links
 
-	@@@ ruby
-	require 'sinatra/base'
-
-	class MyApp < Sinatra::Base
-	  set :sessions, true
-	  set :foo, 'bar'
-
-	  get '/' do
-	    'Hello world!'
-	  end
-	end	
-
-!SLIDE
-
-    @@@ erlang
-        Output = process(Input, []).
-
-        process([First|Rest], Output) ->
-            NewFirst = do_stuff(First),
-            process(Rest, [NewFirst|Output]);
-
-        process([], Output) ->
-            lists:reverse(Output).
-
-!SLIDE execute
-
-# Executable JavaScript #
-
-	@@@ javascript
-	result = 3 + 3;
-
-!SLIDE execute
-
-# Executable Ruby #
-
-	@@@ ruby
-	result = [1, 2, 3].map { |n| n*7 }
-
-!SLIDE execute
-# Executable Coffeescript #
-
-    @@@coffeescript
-    add = (a, b) ->
-      "#{a}+#{b} is #{a+b}"
-
-    result = add 2, 3
+* [Docker sources project = *https://github.com/dotcloud/docker*](https://github.com/dotcloud/docker)
+* [Deploy Rails Applications Using Docker - *http://steveltn.me/blog/2014/03/15/deploy-rails-applications-using-docker*](http://steveltn.me/blog/2014/03/15/deploy-rails-applications-using-docker)
+* [How to Skip Bundle Install When Deploying a Rails App to Docker if the Gemfile Hasn’t Changed - *http://ilikestuffblog.com/2014/01/06/how-to-skip-bundle-install-when-deploying-a-rails-app-to-docker*](http://ilikestuffblog.com/2014/01/06/how-to-skip-bundle-install-when-deploying-a-rails-app-to-docker)
 
 
-!SLIDE
-
-# Write your own slides #
-
-## Using [markdown](http://daringfireball.net/projects/markdown/)
-
-    !SLIDE
-    
-    # Title of the slide #
-    
-    How easy is this?
+http://www.talkingquickly.co.uk/2014/06/rails-development-environment-with-vagrant-and-docker
+https://github.com/TalkingQuickly/docker_rails_dev_env/
+https://coreos.com/docs/launching-containers/building/getting-started-with-docker
+http://docs.docker.io/installation/binaries/#dockergroup
+http://blog.gemnasium.com/post/65599561888/rails-meets-docker
+https://github.com/gemnasium/rails-meets-docker
+https://medium.com/@flawless_retard/a-osx-vagrant-docker-ruby-on-rails-setup-117daf4ef0a5
