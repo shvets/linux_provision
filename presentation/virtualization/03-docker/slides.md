@@ -1,14 +1,42 @@
 !SLIDE
 
-## Introduction
-
 ## What is it?
 
-## Features
+* "open source project to pack, ship and run any application as a lightweight container”. 
+ 
+* it works much like a virtual machine, wraps everything (filesystem, process management, environment variables, etc.) 
+into a container. 
 
-* Linux Containers
+* Unlike a VM, it uses LXC (Linux kernel container) instead of a hypervisor. 
 
-* automatic caching mechanism to greatly speed things up after the first build of a Dockerfile
+* LXC doesn’t have its own kernel, but shares the Linux kernel with the host and other containers instead. Based on LXC, 
+Docker is so lightweight, that it introduces almost no performance drawback while running the application.
+
+* provides a smart way to manage your images. Through Dockerfile and its caching mechanism, one can easily redeploy 
+an updated image without transferring large amounts of data.
+
+
+## When it make sense to use?
+
+* With VM You have to upload the whole new image even if you just made a small update. With Docker
+you don’t have to upload the whole image again. Docker is based on AuFS, which tracks the diff of the whole filesystem.
+
+* There is a significant performance loss. With Docker The performance loss is ignorable since it runs on the host kernel.
+
+* Your probably run your application on a VPS, which is already a virtualized environment. 
+You can’t run a VM on top of another. You can run Docker on a VM because Docker is not a VM
+
+## How it works?
+
+* Docker needs to be run with root privelege.
+
+Docker DOESN’T write into the image. Instead, it creates a layer with each Dockerfile line on top of the existing image, 
+which contains the modifications you made to the filesystem. Migrating from a previous state of filesystem to 
+a recent one is applying one or more layers on top of the old image, just like patching files.
+
+When a container is stopped, you can commit it. Committing a container is creating an additional layer on top 
+of the base image. As expected, the official ubuntu image is also made up of several layers.
+
 
 ## Installation
 
@@ -33,7 +61,7 @@ Update .bash_profile file:
 
 
 ```bash
-export DOCKER_HOST=tcp://127.0.0.1:4243
+export DOCKER_HOST=tcp://192.168.59.103:2375
 ```
 
 Start the docker daemon:
@@ -68,7 +96,7 @@ docker pull centos
 Run and test as separate command:
 
 ```bash
-docker run -t -i ubuntu /bin/bash
+docker run ubuntu /bin/echo hello world
 ```
 
 and interactively:
@@ -79,13 +107,22 @@ docker run -t -i ubuntu /bin/bash
 ```
 
 ```bash
-docker build -t demo .
+docker build -t demo demo
+docker build -t postgres docker/postgres
 ```
 
 ```bash
-docker run -p 49160:8080 -d busybox
-```
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
 
+# Build containers from Dockerfiles
+docker build -t postgres docker/postgres
+docker build -t demo demo
+
+# Run and link the containers
+docker run -d -p 5432:5432 --name postgres postgres:latest
+docker run -d -p 9292:9292 -v /demo:/demo --link postgres:db --name demo demo:latest
+```
 
 !SLIDE
 
