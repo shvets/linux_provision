@@ -1,6 +1,8 @@
+postgresql_host = ENV['POSTGRESQL_HOST'].nil? ? 'localhost' : ENV['POSTGRESQL_HOST']
+
 ActiveRecord::Base.establish_connection(
     :adapter  => 'postgresql',
-    :host     => '192.168.59.103',
+    :host     => postgresql_host,
     :username => 'ruby_dev',
     :password => 'ruby_dev',
     :database => 'ruby_dev_dev',

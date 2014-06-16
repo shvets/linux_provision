@@ -117,7 +117,9 @@ docker build -t demo demo
 # Run and link the containers
 docker run -d -p 5432:5432 --name postgres postgres:latest
 
-docker run --rm -p 22 -p 9292:9292 --name demo demo:latest /bin/bash -l -c "rackup"
+docker run --rm -p 42222:22 -p 9292:9292 -e POSTGRESQL_HOST='192.168.59.103' --name demo demo:latest /bin/bash -l -c "rackup"
+
+--link postgres:db
 
 docker run -d -p 9292:9292 --name demo demo:latest /bin/bash -l -c "rackup"
 ``` 
@@ -134,6 +136,8 @@ docker port demo 22
 
 ssh root@localhost -p 49153
 
+ VBoxManage modifyvm "boot2docker-vm" --natpf1 "containerssh,tcp,,42222,,42222"
+ 
 ```
 
 
@@ -169,72 +173,4 @@ http://blog.gemnasium.com/post/65599561888/rails-meets-docker
 https://github.com/gemnasium/rails-meets-docker
 https://medium.com/@flawless_retard/a-osx-vagrant-docker-ruby-on-rails-setup-117daf4ef0a5
 Docker Cheat Sheet - https://gist.github.com/wsargent/7049221
-
-
-# 3. Install postgres
-
-#RUN apt-get -y -q install postgresql-9.3 postgresql-client-9.3 postgresql-contrib-9.3
-
-#USER postgres
-
-#ADD bin/create_db.sh /src/
-#RUN /src/create_db.sh
-
-# Adjust PostgreSQL configuration so that remote connections to the
-# database are possible.
-#RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
-
-# And add ``listen_addresses`` to ``/etc/postgresql/9.3/main/postgresql.conf``
-#RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
-
-# Expose the PostgreSQL port
-#EXPOSE 5432
-
-# Add VOLUMEs to allow backup of config, logs and databases
-#VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-
-# Set the default command to run when starting the container
-#CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
-
-#USER root
-
-# 3. Install rvm & ruby
-
-RUN curl -L https://get.rvm.io | bash
-
-RUN /bin/bash -l -c "source /etc/profile.d/rvm.sh && rvm install ruby-1.9.3"
-
-# 4. Install project
-
-ENV PATH /usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/rvm/gems/ruby-1.9.3-p547/bin
-
-
-# Trick: make bundle command cashable
-
-WORKDIR /tmp
-ADD ./Gemfile Gemfile
-ADD ./Gemfile.lock Gemfile.lock
-RUN /bin/bash -l -c "rvm --create use 1.9.3@linux_provision_demo && bundle"
-
-# Add project dir to docker
-
-ADD . /opt/demo
-WORKDIR /opt/demo
-
-RUN /bin/bash -l -c "rvm use 1.9.3@linux_provision_demo && rake db:migrate"
-
-#cd /app
-#bundle exec rake db:drop db:create db:migrate
-
-
-RUN chmod +x /opt/demo/bin/create_db.sh
-
-# Make server port available outside
-EXPOSE 9292
-
-# Start server
-#ENTRYPOINT /opt/demo/bin/start-server.sh
-ENTRYPOINT /bin/bash -l -c "rackup"
-
-#CMD ["/usr/bin/supervisord"]
 
