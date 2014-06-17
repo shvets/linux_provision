@@ -64,7 +64,7 @@ RUN /bin/bash -l -c "rvm --create use 1.9.3@linux_provision_demo && bundle"
 ADD . /opt/demo
 WORKDIR /opt/demo
 
-RUN chmod +x /opt/demo/bin/create_db.sh
+#RUN chmod +x /opt/demo/bin/create_db.sh
 #RUN /bin/bash -l -c "rvm use 1.9.3@linux_provision_demo && rake db:migrate"
 
 # Make server port available outside
@@ -92,3 +92,8 @@ EXPOSE 9292
 
 #CMD ["/usr/bin/supervisord"]
 
+# boot2docker ip
+
+# docker build -t demo demo
+# docker run --rm -p 9292:9292 -e POSTGRESQL_HOST='192.168.59.104' --name demo demo /bin/bash -l -c "rake db:migrate"
+# docker run --rm -p 9292:9292 -e POSTGRESQL_HOST='192.168.59.104' --name demo demo /bin/bash -l -c "rackup"
