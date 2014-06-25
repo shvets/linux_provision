@@ -50,8 +50,6 @@ RUN /bin/bash -l -c "source /etc/profile.d/rvm.sh && rvm install ruby-1.9.3"
 
 # 4. Install project
 
-#ENV PATH /usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/rvm/gems/ruby-1.9.3-p547/bin
-
 # Trick: make bundle command cashable
 
 WORKDIR /tmp
@@ -64,6 +62,16 @@ RUN /bin/bash -l -c "rvm --create use 1.9.3@linux_provision_demo && bundle"
 ADD . /opt/demo
 WORKDIR /opt/demo
 
+# Add 'web' user which will run the application
+#RUN adduser web --home /home/web --shell /bin/bash --disabled-password --gecos ""
+
+#RUN chown -R web:web /var/www &&\
+#  mkdir -p /var/bundle &&\
+#  chown -R web:web /var/bundle
+#RUN su -c "cd /var/www && bundle install --deployment --path /var/bundle" -s /bin/bash -l web
+#RUN chown -R web:web /var/www
+#USER web
+
 #RUN chmod +x /opt/demo/bin/create_db.sh
 #RUN /bin/bash -l -c "rvm use 1.9.3@linux_provision_demo && rake db:migrate"
 
@@ -73,7 +81,7 @@ EXPOSE 9292
 # Start server
 #ENTRYPOINT /opt/demo/bin/start-server.sh
 
-#ENTRYPOINT /bin/bash -l -c "rackup"
+CMD /bin/bash -l -c "rackup"
 
 # 2. Install sshd
 

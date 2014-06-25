@@ -22,7 +22,7 @@
 
   "mysql": {
     "hostname": "localhost", "user": "root", "password": "root",
-    "app_user": "ruby_dev",
+    "app_user": "ruby_dev", "app_password": "ruby_dev",
     "app_schemas": ["ruby_dev_test", "ruby_dev_dev", "ruby_dev_prod"]
   }
 

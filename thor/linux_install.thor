@@ -3,26 +3,11 @@ $: << File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'linux_provision/linux_provision'
 
 class LinuxInstall < Thor
+  @installer = LinuxProvision.new self, ".linux_provision.json", [File.expand_path("demo_scripts.sh", File.dirname(__FILE__))]
 
-  def self.installer
-    @@installer ||= LinuxProvision.new ".linux_provision.json", ["thor/demo_scripts.sh"]
+  class << self
+    attr_reader :installer
   end
-
-  def self.create_thor_script_methods parent_class
-    installer.script_list.each do |name, value|
-      title = installer.script_title(value)
-
-      title = title.nil? ? name : title
-
-      parent_class.send :desc, name, title
-      parent_class.send(:define_method, name.to_sym) do
-        self.class.installer.send name.to_sym
-      end
-    end
-
-  end
-
-  create_thor_script_methods self
 
   desc "all", "Installs all required packages"
   def all
@@ -51,11 +36,16 @@ class LinuxInstall < Thor
 
   desc "postgres_create_schemas", "Initializes postgres schemas"
   def postgres_create_schemas
-    self.class.installer.postgres_create_schemas
+    LinuxInstall.installer.postgres_create_schemas
+  end
+
+  desc "postgres_drop_schemas", "Drops postgres schemas"
+  def postgres_drop_schemas
+    LinuxInstall.installer.postgres_drop_schemas
   end
 
   desc "mysql_create_schemas", "Initializes mysql schemas"
   def mysql_create_schemas
-    self.class.installer.mysql_create_schemas
+    LinuxInstall.installer.mysql_create_schemas
   end
 end

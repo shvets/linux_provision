@@ -89,10 +89,16 @@ APP_USER='#{postgres.app_user}'
 APP_PASSWORD='#{postgres.app_password}'
 
 sudo -u postgres psql -c "CREATE USER $APP_USER WITH PASSWORD '$APP_USER'"
-#createuser -s -d -r $APP_USER
 
 ##############################
 [postgres_drop_user]
+
+PATH=$PATH:/usr/local/bin
+
+APP_USER='#{postgres.app_user}'
+
+sudo -u postgres psql -c "DROP USER $APP_USER"
+
 
 ##############################
 [postgres_create_schema]
@@ -111,6 +117,12 @@ sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $SCHEMA to $APP_USER"
 
 ##############################
 [postgres_drop_schema]
+
+PATH=$PATH:/usr/local/bin
+
+SCHEMA='#{schema}'
+
+sudo -u postgres psql -c "DROP DATABASE $SCHEMA"
 
 
 ##############################

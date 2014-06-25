@@ -37,6 +37,38 @@ a recent one is applying one or more layers on top of the old image, just like p
 When a container is stopped, you can commit it. Committing a container is creating an additional layer on top 
 of the base image. As expected, the official ubuntu image is also made up of several layers.
 
+## What is Boot2Docker?
+
+Boot2Docker is a lightweight Linux distribution made specifically to run Docker containers. It runs 
+completely from RAM, is a small ~24MB download and boots in ~5s (YMMV).
+
+Installation instructions for OS X and Windows available on the Docker documentation site.
+
+## How to use Boot2Docker
+
+The boot2docker managment tool leverages VirtualBox's VBoxManage to initialise, start, stop and delete 
+the VM right from the command line.
+
+# Initialize
+
+$ boot2docker init
+
+# Start VM
+
+$ boot2docker up
+
+# Upgrade the Boot2docker VM image
+
+$ boot2docker stop
+$ boot2docker download
+$ boot2docker up
+
+If your Boot2Docker virtual machine was created prior to 0.11.1-pre1, its best to delete - 
+boot2docker delete and then boot2docker init to create a new VM.
+
+The main changes are to add a /var/lib/boot2docker/userdata.tar file that is un-tarred 
+into the /home/docker directory on boot. This file contains a .ssh/authorized_keys and .ssh/authorized_keys2 
+files containing a public sshkey.
 
 ## Installation
 
