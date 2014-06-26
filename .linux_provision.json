@@ -4,7 +4,7 @@
     "user": "vagrant",
     "password": "vagrant",
     "home": "/home/vagrant",
-    "port": "2222",
+    "port": "",
     "remote": true
   },
 
