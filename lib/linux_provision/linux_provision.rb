@@ -28,4 +28,9 @@ class LinuxProvision < GenericProvision
     end
   end
 
+  def mysql_drop_schemas
+    env[:mysql][:app_schemas].each do |schema|
+      run(server_info, "mysql_drop_schema", env.merge(schema: schema))
+    end
+  end
 end

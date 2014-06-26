@@ -9,29 +9,36 @@ class LinuxInstall < Thor
     attr_reader :installer
   end
 
-  desc "all", "Installs all required packages"
-  def all
+  desc "general", "Installs general packages"
+  def general
     invoke :prepare
 
     invoke :rvm
-
     invoke :ruby
 
-    invoke :git
     invoke :node
     invoke :jenkins
     invoke :postgres
     invoke :mysql
 
+    # invoke :selenium
+  end
+
+  desc "app", "Installs app"
+  def app
     invoke :postgres_create_user
     invoke :postgres_create_schemas
 
-    # invoke :mysql_create_user
-    # invoke :mysql_create_schemas
+    invoke :mysql_create_user
+    invoke :mysql_create_schemas
 
-    # invoke :selenium
+    invoke :project
+  end
 
-    # invoke :project
+  desc "all", "Installs all required packages"
+  def all
+    invoke :general
+    invoke :app
   end
 
   desc "postgres_create_schemas", "Initializes postgres schemas"
@@ -47,5 +54,16 @@ class LinuxInstall < Thor
   desc "mysql_create_schemas", "Initializes mysql schemas"
   def mysql_create_schemas
     LinuxInstall.installer.mysql_create_schemas
+  end
+
+  desc "mysql_drop_schemas", "Drops mysql schemas"
+  def mysql_drop_schemas
+    LinuxInstall.installer.mysql_drop_schemas
+  end
+
+  desc "ssh", "ssh"
+  def ssh
+    #system "thor ssh:cp_key vagrant 22.22.22.22"
+    system "ssh vagrant@22.22.22.22"
   end
 end
