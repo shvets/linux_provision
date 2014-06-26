@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 group :default do
   gem "text-interpolator", "~>1.0"
-  gem "script_executor", "~>1.4"
+  gem "script_executor", "~>1.5"
   gem "thor", "~>0.19"
   gem "json_pure", "~>1.8"
 end

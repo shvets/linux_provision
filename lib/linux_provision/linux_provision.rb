@@ -1,6 +1,6 @@
-require 'linux_provision/generic_provision'
+require 'script_executor/base_provision'
 
-class LinuxProvision < GenericProvision
+class LinuxProvision < BaseProvision
 
   USER_LOCAL_BIN = "/usr/local/bin"
 

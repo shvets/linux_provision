@@ -23,3 +23,7 @@
 == Version 0.9.5
 
 * Bug fix.
+
+== Version 0.9.6
+
+* Bump script_executor version.

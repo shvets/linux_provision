@@ -48,8 +48,9 @@ GEM
       rake (>= 0.8.1)
     ruby-debug-ide (0.4.23.beta1)
       rake (>= 0.8.1)
-    script_executor (1.4.2)
+    script_executor (1.5.0)
       highline (~> 1.6)
+      json_pure (~> 1.8)
       net-ssh (~> 2.8)
       text-interpolator (~> 1.0)
     showoff (0.9.8.1)
@@ -88,7 +89,7 @@ DEPENDENCIES
   rspec
   ruby-debug-base19x (= 0.11.30.pre15)
   ruby-debug-ide (= 0.4.23.beta1)
-  script_executor (~> 1.4)
+  script_executor (~> 1.5)
   showoff
   text-interpolator (~> 1.0)
   thor (~> 0.19)
