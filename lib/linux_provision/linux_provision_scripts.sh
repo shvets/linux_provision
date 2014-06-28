@@ -70,6 +70,13 @@ sudo apt-get install -y postgresql
 
 
 #######################################
+[postgres_remote_access]
+
+sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/9.1/main/postgresql.conf
+sudo sed -i '$a host all all  0.0.0.0/0 md5' /etc/postgresql/9.1/main/pg_hba.conf
+
+
+#######################################
 [mysql]
 # Installs mysql server
 
@@ -189,6 +196,15 @@ MYSQL_USER='#{mysql.user}'
 MYSQL_PASSWORD='#{mysql.password}'
 
 mysql -h $HOST_NAME -u$MYSQL_USER -p$MYSQL_PASSWORD -e "drop database $SCHEMA;"
+
+
+#######################################
+[service_command]
+
+SERVICE='#{service}'
+COMMAND='#{command}'
+
+sudo service $SERVICE $COMMAND
 
 
 #######################################

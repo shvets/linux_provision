@@ -33,4 +33,8 @@ class LinuxProvision < BaseProvision
       run(server_info, "mysql_drop_schema", env.merge(schema: schema))
     end
   end
+
+  def service service, command
+    run(server_info, "service_command", env.merge(service: service, command: command))
+  end
 end

@@ -16,10 +16,14 @@ class LinuxInstall < Thor
     invoke :rvm
     invoke :ruby
 
-    invoke :node
-    invoke :jenkins
     invoke :postgres
     invoke :mysql
+  end
+
+  desc "special", "Installs special packages"
+  def special
+    invoke :node
+    invoke :jenkins
 
     # invoke :selenium
   end
@@ -38,6 +42,7 @@ class LinuxInstall < Thor
   desc "all", "Installs all required packages"
   def all
     invoke :general
+    invoke :special
     invoke :app
   end
 
@@ -59,6 +64,11 @@ class LinuxInstall < Thor
   desc "mysql_drop_schemas", "Drops mysql schemas"
   def mysql_drop_schemas
     LinuxInstall.installer.mysql_drop_schemas
+  end
+
+  desc "service", "Executes command for service"
+  def service service, command
+    LinuxInstall.installer.service service, command
   end
 
   desc "ssh", "ssh"
