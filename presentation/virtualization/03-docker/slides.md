@@ -147,7 +147,7 @@ docker build -t postgres docker/postgres
 docker build -t demo demo
 
 # Run and link the containers
-docker run -d -p 5432:5432 --name postgres postgres:latest
+docker run -d -p 5432:5432 --name postgres postgres
 
 docker run --rm -p 42222:22 -p 9292:9292 -e POSTGRESQL_HOST='192.168.59.103' --name demo demo:latest /bin/bash -l -c "rackup"
 

@@ -1,27 +1,42 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# # Commands required to setup working docker enviro, link containers etc.
-# $setup = <<SCRIPT
-# echo "setup"
-# SCRIPT
+# Commands required to setup working docker enviro, link containers etc.
+$setup = <<SCRIPT
+# # Stop and remove any existing containers
+# docker stop $(docker ps -a -q)
+# docker rm $(docker ps -a -q)
 #
-# # Commands required to ensure correct docker containers are started when the vm is rebooted.
-# $start = <<SCRIPT
-# echo "start"
+# # Build containers from Dockerfiles
+# docker build -t postgres docker/postgres
+# docker build -t rails docker/rails
 #
-# #PATH=$PATH:/usr/local/bin
-#
-# #source /usr/local/rvm/scripts/rvm
-#
-# #cd /vagrant
-#
-# #rvm use 1.9.3@n2
-#
-# # bundle --without production
-#
-# #rails s &
-# SCRIPT
+# # Run and link the containers
+# docker run -d -p 5432:5432 --name postgres postgres
+# docker run --rm -p 9292:9292 --name rails rails ls
+
+#docker run -d --name postgres -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker postgres:latest
+#docker run --rm -p 42222:22 -p 9292:9292 -e POSTGRESQL_HOST='192.168.59.103' --name demo demo:latest /bin/bash -l -c "rackup"
+
+SCRIPT
+
+# Commands required to ensure correct docker containers are started when the vm is rebooted.
+$start = <<SCRIPT
+# docker start postgres
+# docker start rails
+
+#PATH=$PATH:/usr/local/bin
+
+#source /usr/local/rvm/scripts/rvm
+
+#cd /vagrant
+
+#rvm use 1.9.3@n2
+
+# bundle --without production
+
+#rails s &
+SCRIPT
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"

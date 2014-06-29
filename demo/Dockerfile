@@ -105,3 +105,14 @@ CMD /bin/bash -l -c "rackup"
 # docker build -t demo demo
 # docker run --rm -p 9292:9292 -e POSTGRESQL_HOST='192.168.59.104' --name demo demo /bin/bash -l -c "rake db:migrate"
 # docker run --rm -p 9292:9292 -e POSTGRESQL_HOST='192.168.59.104' --name demo demo /bin/bash -l -c "rackup"
+
+# docker build -t demo demo
+# docker run -d -p 42222:22 -p 80:80 --name demo demo
+
+# docker run -p 42222:22 -p 80:80 -t -i --name demo demo
+
+# docker port sshd 22
+# boot2docker ip
+# ssh root@192.168.59.103 -p 42222
+
+# docker run -d -p 42222:22 -p 9292:9292 --name demo demo
