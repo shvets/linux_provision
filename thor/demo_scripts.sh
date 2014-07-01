@@ -31,4 +31,6 @@ cd $APP_HOME
 
 source $USER_HOME/.rvm/scripts/rvm
 
+rvm use #{project.ruby_version}@#{project.gemset}
+
 rackup

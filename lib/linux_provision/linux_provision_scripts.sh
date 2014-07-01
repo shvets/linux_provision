@@ -25,14 +25,13 @@ sudo apt-get install -y bison
 sudo apt-get install -y pkg-config
 sudo apt-get install -y libffi-dev
 
-
 #######################################
 [rvm]
 # Installs rvm
 
 curl -L https://get.rvm.io | bash
 
-sudo chown -R vagrant /opt/vagrant_ruby
+#sudo chown -R vagrant /opt/vagrant_ruby
 
 
 #######################################
