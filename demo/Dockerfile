@@ -8,11 +8,6 @@ RUN sudo apt-get update
 
 RUN sudo locale-gen en_US.UTF-8
 
-#RUN echo LANGUAGE="en_US.UTF-8" > /etc/default/locale
-#RUN echo LC_ALL="en_US.UTF-8" > /etc/default/locale
-#RUN echo LANG="en_US.UTF-8" > /etc/default/locale
-#RUN echo LC_TYPE="en_US.UTF-8" > /etc/default/locale
-
 
 # 2. Install sshd
 
@@ -38,13 +33,15 @@ RUN sudo sed -i '$a vagrant    ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
 
 RUN echo vagrant:vagrant | chpasswd
 
+RUN sudo chown -R vagrant /home/vagrant
+
 
 # 4. Prepare directories for the project
 
 # Add project dir to docker
 
-ADD . /opt/demo
-WORKDIR /opt/demo
+ADD . /home/vagrant/demo
+WORKDIR /home/vagrant/demo
 
 EXPOSE 9292
 
@@ -57,6 +54,5 @@ EXPOSE 9292
 # ssh root@192.168.59.103 -p 42222
 
 # thor linux_install:general
-# thor linux_install:service postgresql start
 # thor linux_install:app
 

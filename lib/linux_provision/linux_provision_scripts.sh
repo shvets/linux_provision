@@ -67,6 +67,8 @@ sudo apt-get install -y postgresql-client
 sudo apt-get install -y libpq-dev
 sudo apt-get install -y postgresql
 
+sudo service postgresql restart
+
 
 #######################################
 [postgres_remote_access]
@@ -94,6 +96,8 @@ sudo debconf-set-selections <<< "mysql-server-$MYSQL_SERVER_VERSION mysql-server
 sudo debconf-set-selections <<< "mysql-server-$MYSQL_SERVER_VERSION mysql-server/root_password_again password $MYSQL_PASSWORD"
 
 sudo apt-get -y install mysql-server
+
+sudo service mysql restart
 
 #sudo mysqladmin -u$MYSQL_USER password $MYSQL_PASSWORD
 

@@ -3,39 +3,51 @@
 
 # Commands required to setup working docker enviro, link containers etc.
 $setup = <<SCRIPT
-# # Stop and remove any existing containers
-# docker stop $(docker ps -a -q)
-# docker rm $(docker ps -a -q)
-#
-# # Build containers from Dockerfiles
+echo "Setup..."
+
+cd /home/vagrant/demo
+
+# Stop and remove any existing containers
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+#docker stop demo
+#docker rm demo
+
+# Build containers from Dockerfiles
 # docker build -t postgres docker/postgres
 # docker build -t rails docker/rails
-#
-# # Run and link the containers
+
+docker build -t demo demo
+
+# Run and link the containers
 # docker run -d -p 5432:5432 --name postgres postgres
 # docker run --rm -p 9292:9292 --name rails rails ls
-
 #docker run -d --name postgres -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker postgres:latest
 #docker run --rm -p 42222:22 -p 9292:9292 -e POSTGRESQL_HOST='192.168.59.103' --name demo demo:latest /bin/bash -l -c "rackup"
+
+docker run -d -p 42222:22 -p 9292:9292 --name demo demo
 
 SCRIPT
 
 # Commands required to ensure correct docker containers are started when the vm is rebooted.
 $start = <<SCRIPT
+echo "Start..."
+
 # docker start postgres
 # docker start rails
 
-#PATH=$PATH:/usr/local/bin
+docker start demo
 
-#source /usr/local/rvm/scripts/rvm
+PATH=$PATH:/usr/local/bin
 
-#cd /vagrant
+source $HOME/.rvm/scripts/rvm
 
-#rvm use 1.9.3@n2
+cd $HOME/demo
 
-# bundle --without production
+rvm use 1.9.3@linux_provision_demo
 
-#rails s &
+rackup
 SCRIPT
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
@@ -80,7 +92,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder "../linux_provision", "/home/vagrant/demo"
+  #config.vm.synced_folder "../linux_provision/demo", "/home/vagrant/demo"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -94,6 +106,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
   #
+
+  # config.vm.provision "docker"
+  #
+  # # Setup resource requirements
+  # config.vm.provider "virtualbox" do |v|
+  #   v.memory = 2048
+  #   v.cpus = 2
+  # end
+
   # View the documentation for the provider you're using for more
   # information on available options.
 
@@ -163,9 +184,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Setup the containers when the VM is first created
   # config.vm.provision :shell, :path => "bootstrap.sh"
-  # config.vm.provision "shell", inline: $setup
+  #config.vm.provision "shell", inline: $setup
 
   # Make sure the correct containers are running
   # every time we start the VM.
-  # config.vm.provision "shell", run: "always", inline: $start
+  #config.vm.provision "shell", run: "always", inline: $start
 end
