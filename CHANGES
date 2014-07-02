@@ -27,3 +27,7 @@
 == Version 0.9.6
 
 * Bump script_executor version.
+
+== Version 0.9.7
+
+* Adding support for docker.
