@@ -13,7 +13,7 @@
   "project": {
     "home": "#{node.home}/demo",
     "ruby_version": "1.9.3",
-    "gemset": "linux_provision"
+    "gemset": "linux_provision_demo"
   },
 
   "postgres": {
@@ -27,5 +27,4 @@
     "app_user": "ruby_dev", "app_password": "ruby_dev",
     "app_schemas": ["ruby_dev_test", "ruby_dev_dev", "ruby_dev_prod"]
   }
-
 }

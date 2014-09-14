@@ -72,13 +72,59 @@ sudo apt-get install -y postgresql
 
 sudo service postgresql restart
 
-
 #######################################
 [postgres_remote_access]
 
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/9.1/main/postgresql.conf
 sudo sed -i '$a host all all  0.0.0.0/0 md5' /etc/postgresql/9.1/main/pg_hba.conf
 
+#######################################
+[postgres_create_user]
+# Creates postgres user
+
+PATH=$PATH:/usr/local/bin
+
+APP_USER='#{postgres.app_user}'
+APP_PASSWORD='#{postgres.app_password}'
+
+sudo -u postgres psql -c "CREATE USER $APP_USER WITH PASSWORD '$APP_USER'"
+
+
+#######################################
+[postgres_drop_user]
+# Drops postgres user
+
+PATH=$PATH:/usr/local/bin
+
+APP_USER='#{postgres.app_user}'
+
+sudo -u postgres psql -c "DROP USER $APP_USER"
+
+
+#######################################
+[postgres_create_schema]
+# Creates postgres schema
+
+SCHEMA='#{schema}'
+
+POSTGRES_USER='#{postgres.user}'
+APP_USER='#{postgres.app_user}'
+
+ENCODING_STRING="WITH ENCODING = 'UTF-8' LC_CTYPE = 'en_US.utf8' LC_COLLATE = 'en_US.utf8' OWNER $POSTGRES_USER TEMPLATE template0"
+
+sudo -u postgres psql -c "CREATE DATABASE $SCHEMA $ENCODING_STRING"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $SCHEMA to $APP_USER"
+
+
+#######################################
+[postgres_drop_schema]
+# Drops postgres schema
+
+PATH=$PATH:/usr/local/bin
+
+SCHEMA='#{schema}'
+
+sudo -u postgres psql -c "DROP DATABASE $SCHEMA"
 
 #######################################
 [mysql]
@@ -106,52 +152,8 @@ sudo service mysql restart
 
 
 #######################################
-[postgres_create_user]
-
-PATH=$PATH:/usr/local/bin
-
-APP_USER='#{postgres.app_user}'
-APP_PASSWORD='#{postgres.app_password}'
-
-sudo -u postgres psql -c "CREATE USER $APP_USER WITH PASSWORD '$APP_USER'"
-
-
-#######################################
-[postgres_drop_user]
-
-PATH=$PATH:/usr/local/bin
-
-APP_USER='#{postgres.app_user}'
-
-sudo -u postgres psql -c "DROP USER $APP_USER"
-
-
-#######################################
-[postgres_create_schema]
-
-SCHEMA='#{schema}'
-
-POSTGRES_USER='#{postgres.user}'
-APP_USER='#{postgres.app_user}'
-
-ENCODING_STRING="WITH ENCODING = 'UTF-8' LC_CTYPE = 'en_US.utf8' LC_COLLATE = 'en_US.utf8' OWNER $POSTGRES_USER TEMPLATE template0"
-
-sudo -u postgres psql -c "CREATE DATABASE $SCHEMA $ENCODING_STRING"
-sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $SCHEMA to $APP_USER"
-
-
-#######################################
-[postgres_drop_schema]
-
-PATH=$PATH:/usr/local/bin
-
-SCHEMA='#{schema}'
-
-sudo -u postgres psql -c "DROP DATABASE $SCHEMA"
-
-
-#######################################
 [mysql_create_user]
+# Creates mysql user
 
 PATH=$PATH:/usr/local/bin
 
@@ -166,6 +168,7 @@ mysql -h $HOST_NAME -u$MYSQL_USER -p$MYSQL_PASSWORD -e "GRANT ALL PRIVILEGES ON 
 
 #######################################
 [mysql_drop_user]
+# Drops mysql user
 
 APP_USER='#{mysql.app_user}'
 HOST_NAME='#{mysql.hostname}'
@@ -178,6 +181,7 @@ mysql -h $HOST_NAME  -u $MYSQL_USER -p"$MYSQL_PASSWORD" -e "DROP USER '$APP_USER
 
 #######################################
 [mysql_create_schema]
+# Creates mysql schema
 
 PATH=$PATH:/usr/local/bin
 
@@ -192,6 +196,7 @@ mysql -h $HOST_NAME -u$MYSQL_USER -p$MYSQL_PASSWORD -e "create database $SCHEMA;
 
 #######################################
 [mysql_drop_schema]
+# Drops mysql schema
 
 PATH=$PATH:/usr/local/bin
 

@@ -28,7 +28,7 @@ You can’t run a VM on top of another. You can run Docker on a VM because Docke
 
 ## How it works?
 
-* Docker needs to be run with root privelege.
+* Docker needs to be run with root privilege.
 
 Docker DOESN’T write into the image. Instead, it creates a layer with each Dockerfile line on top of the existing image, 
 which contains the modifications you made to the filesystem. Migrating from a previous state of filesystem to 

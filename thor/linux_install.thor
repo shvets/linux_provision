@@ -28,22 +28,30 @@ class LinuxInstall < Thor
     # invoke :selenium
   end
 
-  desc "app", "Installs app"
-  def app
+  desc "create_env", "Installs environment"
+  def create_env
     invoke :postgres_create_user
     invoke :postgres_create_schemas
 
     invoke :mysql_create_user
     invoke :mysql_create_schemas
+  end
 
-    invoke :project
+  desc "delete_env", "Deletes environment"
+  def delete_env
+    invoke :postgres_drop_schemas
+    invoke :postgres_drop_user
+
+    invoke :mysql_drop_schemas
+    invoke :mysql_drop_user
   end
 
   desc "all", "Installs all required packages"
   def all
     invoke :general
     invoke :special
-    invoke :app
+    invoke :create_env
+    invoke :project
   end
 
   desc "postgres_create_schemas", "Initializes postgres schemas"

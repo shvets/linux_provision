@@ -16,14 +16,13 @@
 * We are **working on multiple projects** on same workstation. As a result, suddenly your computer has "hidden",
 hard-to-discover inter-project dependencies or different versions of same library.
 
-* To overcome **It "works on my machine!"** syndrome - development environment is different from production environment.
+* To overcome **It works on my machine!** syndrome - development environment is different from production environment.
 
 * Sometimes required software is **not available** on developer's platform. Example: 64-bit instant client for oracle
-was broken for almost two years on OS/X >= 10.7.
+was broken for almost two years on OSX >= 10.7.
 
 * **Development for PAAS**, such as Heroku, Engine Yard etc. You can find/build virtualization that is pretty close to
 your platform.
-
 
 
 !SLIDE content transition=cover
@@ -38,8 +37,9 @@ your platform.
 
 # What is it?
 
-* It is ruby gem.
-* it helps to provide easy to configure, reproducible, and portable work environments.
+* It is wrapper around virtual box.
+* It is an tool for managing virtual machines via a simple to use command line interface.
+* With vagrant you can work in a clean environment based on a standard template (base box).
 
 
 
@@ -50,23 +50,8 @@ your platform.
 * Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads). Download it from dedicated web site and install
 it as native program. You can use it in UI mode, but it's not required.
 
-* Install [Vagrant](http://www.vagrantup.com) gem:
-
-```bash
-$ gem install vagrant
-```
-
-* or put it into **Gemfile**:
-
-```ruby
-gem "vagrant"
-```
-
-* Run bundler:
-
-```bash
-bundle install
-```
+* Install [Vagrant](http://www.vagrantup.com). Before it was distributed as ruby gem, now it's done as
+native application. Once installed, it will be accessible from command line as **vagrant** command.
 
 
 
@@ -252,7 +237,7 @@ vagrant ssh node2
 * It will have already preinstalled and configured ruby/rvm/mysql/postgres etc.:
 
 ```bash
-vagrant package --vagrantfile Vagrantfile --output proteus.box
+vagrant package --vagrantfile Vagrantfile --output new_linux_box.box
 ```
 
 
@@ -261,7 +246,8 @@ vagrant package --vagrantfile Vagrantfile --output proteus.box
 
 # What's next?
 
-* Once you install Vagrant with some provision (script, chef-solo or puppet), you can use it in same way as your worksation:
+* Once you install Vagrant with some provision (script, chef-solo or puppet), you can use it in same way
+as your workstation:
 
 ```bash
 vagrant ssh
@@ -275,10 +261,10 @@ rspec
 ASSET_HOST=http://22.22.22.22:3000 rails s
 ```
 
-* and then access it from the browser within [host computer](http://22.22.22.22:3000/triton):
+* and then access it from the browser within [host computer](http://22.22.22.22:3000/app):
 
 ```
-  open http://22.22.22.22:3000/triton
+  open http://22.22.22.22:3000/app
 ```
 
 
