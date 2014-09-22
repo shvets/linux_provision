@@ -40,7 +40,7 @@ unified, easy to replicate virtual platform with same characteristics for all de
 
 >
 
-![chef](chef.jpg)
+![chef](../images/chef.jpg)
 
 
 

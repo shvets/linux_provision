@@ -31,7 +31,7 @@ your platform.
 
 >
 
-![vagrant](vagrant.jpg)
+![vagrant](../images/vagrant.jpg)
 
 !SLIDE title-and-content transition=cover
 

@@ -8,49 +8,50 @@ Why do we need virtualization in development?
 
 * We want to have **same environment for all developers**, no matter on what platform they are working now.
 
-* We are **working on multiple projects** on same workstation. As a result, suddenly your computer has "hidden",
-hard-to-discover inter-project dependencies or different versions of same library.
+* We are **working on multiple projects** on same computer unit. As a result, suddenly your computer has "hidden",
+hard-to-discover inter-project dependencies or different versions of the same library.
 
-* we want to run Continuous Integration Server's jobs that start servers on **same ports** for different set
+* We want to run Continuous Integration Server's jobs that start services on **same ports** for different set
 of acceptance tests (isolated jobs).
 
 * To overcome **It works on my machine!** syndrome - development environment is different from production environment.
 
 * Sometimes required software is **not available** on developer's platform. Example: 64-bit instant client for oracle
-was broken for almost two years on OSX >= 10.7.
+was broken for almost two years on OSX  >= 10.7.
 
-* **Development for PAAS**, such as Heroku, Engine Yard etc. You can find/build virtualization that is pretty close to
+* **Development for PAAS**, such as Heroku, Engine Yard etc. You can find and build virtualization that is pretty close to
 your platform.
 
-We will take a look at how can we do provisioning for Vagrant and Docker. Both tools are built based on VirtualBox.
+We will take a look at how can we do provisioning for **Vagrant** and **Docker**. Both tools are built based on **VirtualBox**.
 
 
 ## Installing and configuring Vagrant
 
 
-What is Vagrant?
-
-* It is wrapper around virtual box.
-* It is an tool for managing virtual machines via a simple to use command line interface.
-* With vagrant you can work in a clean environment based on a standard template (base box).
+Vagrant is wrapper around Virtual Box. It is a tool for managing virtual machines via a simple to use command line interface. With it you can work in a clean environment based on a standard template - **base box**.
 
 In order to use Vagrant you have to install these programs:
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads). Download it from dedicated web site and install
+* [VirtualBox][VirtualBox]. Download it from dedicated web site and install
 it as native program. You can use it in UI mode, but it's not required.
 
-* [Vagrant](http://www.vagrantup.com). Before it was distributed as ruby gem, now it's packaged as
-native application. Once installed, it will be accessible from command line as **vagrant** command.
+* [Vagrant][Vagrant]. Before it was distributed as ruby gem, now it's packaged as **native application**. Once installed, it will be accessible from command line as **vagrant** command.
 
-Then you need to decide what linux installation you need, install linux image (base box) and then initialize it:
+You have to decide what linux image feets your needs. Here we use **Ubuntu 14.04 LTS 64-bit** image - it is identified as **ubuntu/trusty64**.
+
+Download and install it:
 
 ```bash
 vagrant box add ubuntu/trusty64 https://vagrantcloud.com/ubuntu/boxes/trusty64
+```
 
+Initialize it:
+
+```
 vagrant init ubuntu/trusty64
 ```
 
-Last **init** command creates Vagrantfile file in the root of your project. Below is an example of such a file:
+This command creates **Vagrantfile** file in the root of your project. Below is an example of such a file:
 
 ```ruby
 # -*- mode: ruby -*-
@@ -63,17 +64,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 end
 ```
 
-You can do various commands with vagrant tool. For example:
+You can do various commands with **vagrant** tool. For example:
 
 ```bash
-vagrant up        # starts up: creates and configures guest machines
+vagrant up        # starts up: creates and configures guest machine
 vagrant suspend   # suspends the guest machine
 vagrant halt      # shuts down the running machine
-vagrant reload    # halt; up
-vagrant destroy   # stops the running machine and destroys all related resources
-
-vagrant provision # perform provisioning configured for machine
-
+vagrant reload    # vagrant halt; vagrant up
+vagrant destroy   # stops machine and destroys all related resources
+vagrant provision # perform provisioning for machine
 vagrant box remove ubuntu/trusty64 # removes a box from vagrant
 
 # packages a currently running VirtualBox environment into a re-usable box.
@@ -86,15 +85,13 @@ After **Vagrantfile** is generated, you can start your base box:
 vagrant up
 ```
 
-Now you have a **fully running virtual machine** in VirtualBox running Ubuntu 14.04 LTS 64-bit.
-
-You can access your base box through **vagrant ssh**:
+Now you have a **fully running virtual machine** in VirtualBox. You can access it through **vagrant ssh** command:
 
 ```bash
 vagrant ssh
 ```
 
-or **directly via ssh** (use "vagrant" password for "vagrant" user and port 2222, it's port used by vagrant for ssh):
+or **directly via ssh** (use **vagrant** password for **vagrant** user and port **2222**, this port is used as default by vagrant for ssh connections):
 
 ```bash
 ssh vagrant@127.0.0.1 -p 2222
@@ -114,27 +111,25 @@ With this configuration you can access ssh on default port:
 ssh vagrant@22.22.22.22
 ```
 
-Your linux box initial setup is completed and ready to use.
+Your linux box initial setup is completed now and ready to use.
 
 
 ## Installing and configuring Docker
 
 
-Docker is an open-source project that makes creating and managing **Linux containers** really easy.
-Containers are like extremely lightweight VMs - they allow code to run in isolation from other containers
-but safely share the machine's resources, all without the overhead of a hypervisor.
+Docker is an open-source project that helps you to create and manage **Linux containers**. Containers are like extremely lightweight VMs - they allow code to run in isolation from other containers. They safely share the machine's resources, all without the overhead of a hypervisor.
 
-* Download and install VirtualBox for OSX from https://www.virtualbox.org/wiki/Downloads.
+In order to use Docker you have to install these programs:
 
-* Install boot2docker from http://boot2docker.io.
+* [VirtualBox][VirtualBox].
 
-**boot2docker** is a lightweight Linux distribution made specifically to run Docker containers. You need it
-only for non-Linux operating systems. It runs completely from RAM, weighs ~27MB and boots in ~5s.
+* [boot2docker][boot2docker]. You need to install it only for non-Linux environment.
 
-We'll run the Docker client natively on OS X, but the Docker server will run inside our boot2docker VM.
-This also means boot2docker, not OS X, is the Docker host.
+ boot2docker is a lightweight Linux image made specifically to run Docker containers. It runs completely from RAM, weighs  approximately 27 MB and boots in about 5 seconds.
 
-Initialize boot2docker virtual machine.This command will create **boot2docker-vm** virtual machine:
+We'll run the Docker client natively on OSX, but the Docker server will run inside our boot2docker VM. This also means boot2docker, not OSX, is the Docker host.
+
+This command will create **boot2docker-vm** virtual machine:
 
 ```bash
 boot2docker init
@@ -169,13 +164,13 @@ export DOCKER_HOST=tcp://192.168.59.103:2375
 
 You have to setup it globally in **.bash\_profile** file or specify it each time when docker client is started.
 
-You can access boot2docker over ssh (user: docker, password: **tcuser**):
+You can access boot2docker over ssh (user: **docker**, password: **tcuser**):
 
 ```bash
 boot2docker ssh
 ```
 
-Download the small base image named busybox:
+Download the small base image named **busybox**:
 
 ```bash
 docker pull busybox
@@ -194,10 +189,9 @@ docker run -t -i busybox /bin/sh
 ```
 
 
-## Install and configuring linux_provision gem
+## Install and confige linux_provision gem
 
-Both programs - Vagrant and Docker have their own ways to provide provisioning. Vagrant is doing it
-with the help of provision attribute. Example with simple shell script:
+Both programs - Vagrant and Docker - have their own ways to serve provisioning. Vagrant is doing it with the help of **provision** attribute. Example with simple shell script:
 
 ```ruby
 Vagrant::Config.run do |config|
@@ -213,17 +207,20 @@ Vagrant::Config.run do |config|
   end
 end
 ```
-Docker also lets you to do provisioning as docker layers and **RUN** command.
+Docker also lets you do provisioning in form of **RUN** command:
 
-After multiple tries it was discovered that provisioning is better to do as set of
-independent scripts, separated from Docker or Vagrant.
+```text
+# Dockerfile
 
-**linux_provision** gem is set of such shell scripts - they install various components such as postgres server,
-rvm, ruby etc. with the help of thor or rake script.
+RUN apt-get -y -q install postgresql-9.3
+```
 
-### Install
+After multiple experiments with provisions both from Vagrant and Docker it was discovered that it is not convenient to use. It does not let you to easy install or uninstall separate packages. It's better to do it as **set of independent scripts**, separated completely from Docker and Vagrant.
 
-Add this line to your application's Gemfile:
+**linux_provision** gem is set of such shell scripts - they install various components like postgres server, rvm, ruby etc. with the help of thor or rake script. You can see other gems that are providing similar solutions:
+for [Oracle Instant Client][oracle_client_provision] and for [OSX][osx_provision].
+
+In order to install gem add this line to your application's Gemfile:
 
 ```bash
 gem 'linux_provision'
@@ -235,21 +232,14 @@ And then execute:
 bundle
 ```
 
-### Configure
+Before you can start using **linux_provision** gem within your project, you need to configure it. Do the following:
 
-Before you can start using **linux_provision** gem within your project, you need to do the following:
-
-* Create configuration file (e.g. .linux\_provision.json) in json format at the root of your project.
-It will define your environment:
+* Create configuration file (e.g. **.linux\_provision.json**) in json format at the root of your project. It will define your environment:
 
 ```json
 {
   "node": {
-    "domain": "127.0.0.1",
-    "user": "ENV['USER']",
-    "home": "ENV['HOME']",
-    "port": "",
-    "remote": false
+   ...
   },
 
   "project": {
@@ -266,17 +256,17 @@ It will define your environment:
 }
 ```
 
-Variables defined in this file are used by underlying shell scripts provided by this gem.
+Variables defined in this file are used by underlying shell scripts provided by the gem.
 
-**node** section describes your destination computer where you want to install this provision.
+In **node** section you describe destination computer where you want to install this provision.
 
-In **project** section you keep project-related info, like project **home**, project **gemset name**
-and **ruby version**.
+In **project** section you keep project-related info, like project **home**, project **gemset name** and **ruby version**.
+
+Last **postgres** section contains information about your postgres server.
 
 * Provide execution script
 
-Library itself if written in ruby, but for launching its code you have to use **rake** or **thor** tool.
-Here I provide thor script as an example:
+Library itself if written in ruby, but for launching its code you have to use **rake** or **thor** tool. Here I provide thor script as an example:
 
 ```ruby
 # thor/linux_install.thor
@@ -341,14 +331,12 @@ source $USER_HOME/.rvm/scripts/rvm
 rvm install ruby-1.9.3
 ```
 
-
 ## Demo application with Vagrant
 
 
-For testing purposes we have created demo web application (in **demo** folder) based on
-sinatra framework.
+For testing purposes we have created demo web application (in **demo** folder) based on [sinatra][sinatra] framework.
 
-First, we need to inform Vagrant about location of this application:
+First, we need to inform Vagrant about the location of this application within virtual machine:
 
 ```ruby
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -356,8 +344,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 end
 ```
 
-Second, we need to configure linux_provision gem to point to right domain and port and use correct
-user name:
+Second, we need to configure linux_provision gem to point to right domain/port and use correct user name/password:
 
 ```json
 {
@@ -392,7 +379,7 @@ cd demo
 ls # content of demo folder
 ```
 
-These commands will provision your environment for demo project:
+These commands from **linux_provision** gem will build your environment for demo project (install dvm, ruby, postgres, postgres user and tables):
 
 ```bash
 thor linux_install:prepare
@@ -421,17 +408,16 @@ open http://22.22.22.22:9292
 
 ## Demo application with Docker
 
-You need to do very similar steps as with Vagrant. The only difference is in linux_provision.json
-file you have to point to different host, port and user:
+You need to do very similar steps as with Vagrant. The only difference is in **linux\_provision.json** file you have to point to different host, port and user:
 
 ```json
 {
   "node": {
-    "domain": "192.168.59.103", # remote host, see "config.vm.synced_folder"
+    "domain": "192.168.59.103", # remote host, see boot2docker ip
     "port": "42222",            # ssh port in docker
     "user": "vagrant",          # vagrant user name
     "password": "vagrant",      #
-    "home": "/home/vagrant",   # vagrant user password
+    "home": "/home/vagrant",    # vagrant user password
     "remote": true
   }
 }
@@ -443,7 +429,7 @@ Our Dockerfile is responsible for the following base steps:
 
 * Install sshd.
 
-* Create vagrant user.
+* Create vagrant user (just to in-synch with Vagrant example).
 
 * Reveal project home as /home/vagrant/demo.
 
@@ -495,18 +481,17 @@ docker build -t demo demo
 docker run -d -p 42222:22 -p 9292:9292 --name demo demo
 ```
 
-As you can see, we map port 22 inside docker to port 42222 outside. It means that when we hit port 42222
-with regular telnet tool, we'll hit service inside docker.
+As you can see, we map port 22 inside docker to port 42222 outside. It means that when we hit port 42222 with regular telnet tool, we'll hit service inside the docker.
 
-Now you can access virtual machine via ssh:
+You can access virtual machine via ssh:
 
 ```bash
 ssh vagrant@192.168.59.103 -p 42222
 ssh root@192.168.59.103 -p 42222
 ```
 
-Now you can do provision - it's exactly the same as with Vagrant:
-
+Now you can do your provision - it's exactly the same as with Vagrant example:'
+'
 ```bash
 thor linux_install:prepare
 thor linux_install:rvm
@@ -522,7 +507,7 @@ thor linux_install:project
 thor linux_install:rackup
 ```
 
-Now you can access application from your favorite browser:
+After provision and starting server try to access your application from the browser:
 
 ```bash
 open http://192.168.59.103:9292
@@ -535,3 +520,10 @@ open http://192.168.59.103:9292
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+[VirtualBox]: https://www.virtualbox.org/wiki/Downloads
+[Vagrant]: http://www.vagrantup.com
+[boot2docker]: http://boot2docker.io
+[oracle_client_provision]:  https://github.com/shvets/oracle_client_provision
+[osx_provision]: https://github.com/shvets/osx_provision
+[sinatra]: http://www.sinatrarb.com
