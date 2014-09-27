@@ -1,4 +1,4 @@
-# Library and thor tasks for provisioning of Linux computer initial setup for Ruby/Rails development
+# Library for provisioning initial setup of Linux computer for Ruby/Rails development
 
 
 ## Introduction
@@ -11,24 +11,23 @@ Why do we need virtualization in development?
 * We are **working on multiple projects** on same computer unit. As a result, suddenly your computer has "hidden",
 hard-to-discover inter-project dependencies or different versions of the same library.
 
-* We want to run Continuous Integration Server's jobs that start services on **same ports** for different set
+* We want to run Continuous Integration Server jobs that start services on **same ports** for different set
 of acceptance tests (isolated jobs).
 
-* To overcome **It works on my machine!** syndrome - development environment is different from production environment.
+* To overcome **"It works on my machine!"** syndrome - when development environment is different from production environment.
 
 * Sometimes required software is **not available** on developer's platform. Example: 64-bit instant client for oracle
 was broken for almost two years on OSX  >= 10.7.
 
-* **Development for PAAS**, such as Heroku, Engine Yard etc. You can find and build virtualization that is pretty close to
-your platform.
+* **Development for PAAS**, such as Heroku, Engine Yard etc. You can find and build virtualization that is pretty close to your platform.
 
-We will take a look at how can we do provisioning for **Vagrant** and **Docker**. Both tools are built based on **VirtualBox**.
+We will take a look at how can we do provisioning for **Vagrant** and **Docker**. Both tools are built on top of **VirtualBox**.
 
 
 ## Installing and configuring Vagrant
 
 
-Vagrant is wrapper around Virtual Box. It is a tool for managing virtual machines via a simple to use command line interface. With it you can work in a clean environment based on a standard template - **base box**.
+**Vagrant** is the wrapper around VirtualBox. It is a tool for managing virtual machines via simple to use **command line** interface. With it you can work in a clean environment based on a standard template - **base box**.
 
 In order to use Vagrant you have to install these programs:
 
@@ -37,7 +36,7 @@ it as native program. You can use it in UI mode, but it's not required.
 
 * [Vagrant][Vagrant]. Before it was distributed as ruby gem, now it's packaged as **native application**. Once installed, it will be accessible from command line as **vagrant** command.
 
-You have to decide what linux image feets your needs. Here we use **Ubuntu 14.04 LTS 64-bit** image - it is identified as **ubuntu/trusty64**.
+You have to decide what linux image fits your needs. I our case we use **Ubuntu 14.04 LTS 64-bit** image - it is identified with **"ubuntu/trusty64"** key.
 
 Download and install it:
 
@@ -74,8 +73,11 @@ vagrant reload    # vagrant halt; vagrant up
 vagrant destroy   # stops machine and destroys all related resources
 vagrant provision # perform provisioning for machine
 vagrant box remove ubuntu/trusty64 # removes a box from vagrant
+```
 
-# packages a currently running VirtualBox environment into a re-usable box.
+You can package currently running VirtualBox environment into reusable box:
+
+```bash
 vagrant package --vagrantfile Vagrantfile --output linux_provision.box
 ```
 
@@ -111,13 +113,13 @@ With this configuration you can access ssh on default port:
 ssh vagrant@22.22.22.22
 ```
 
-Your linux box initial setup is completed now and ready to use.
+Your initial setup of linux box is completed now and ready to use.
 
 
 ## Installing and configuring Docker
 
 
-Docker is an open-source project that helps you to create and manage **Linux containers**. Containers are like extremely lightweight VMs - they allow code to run in isolation from other containers. They safely share the machine's resources, all without the overhead of a hypervisor.
+Docker helps you create and manage **Linux containers** - extremely lightweight VMs. Containers allow code to run in isolation from other containers. They safely share the machine's resources, all without the overhead of a hypervisor.
 
 In order to use Docker you have to install these programs:
 
@@ -127,14 +129,15 @@ In order to use Docker you have to install these programs:
 
  boot2docker is a lightweight Linux image made specifically to run Docker containers. It runs completely from RAM, weighs  approximately 27 MB and boots in about 5 seconds.
 
-We'll run the Docker client natively on OSX, but the Docker server will run inside our boot2docker VM. This also means boot2docker, not OSX, is the Docker host.
+We'll run the Docker client natively on OSX, but the Docker server will run inside our boot2docker VM. This also means that boot2docker, not OSX, is the Docker host.
 
 This command will create **boot2docker-vm** virtual machine:
 
 ```bash
 boot2docker init
 ```
-
+Go to VirtualBox UI - new VM will be added.
+ 
 Start it up:
 
 ```bash
@@ -217,10 +220,10 @@ RUN apt-get -y -q install postgresql-9.3
 
 After multiple experiments with provisions both from Vagrant and Docker it was discovered that it is not convenient to use. It does not let you to easy install or uninstall separate packages. It's better to do it as **set of independent scripts**, separated completely from Docker and Vagrant.
 
-**linux_provision** gem is set of such shell scripts - they install various components like postgres server, rvm, ruby etc. with the help of thor or rake script. You can see other gems that are providing similar solutions:
+**linux_provision** gem is the set of such shell scripts - they install various components like postgres server, rvm, ruby etc. with the help of thor or rake script. You can see other gems that are providing similar solutions:
 for [Oracle Instant Client][oracle_client_provision] and for [OSX][osx_provision].
 
-In order to install gem add this line to your application's Gemfile:
+In order to use gem add this line to your application's Gemfile:
 
 ```bash
 gem 'linux_provision'
@@ -266,7 +269,7 @@ Last **postgres** section contains information about your postgres server.
 
 * Provide execution script
 
-Library itself if written in ruby, but for launching its code you have to use **rake** or **thor** tool. Here I provide thor script as an example:
+Library itself if written in ruby, but for launching its code it's more convenient to use **rake** or **thor** tool. Here I provide thor script as an example:
 
 ```ruby
 # thor/linux_install.thor
@@ -295,8 +298,7 @@ class LinuxInstall < Thor
 end
 ```
 
-You can execute separate commands from script directly with **invoke** thor command. Below is fragment
-of such script:
+You can execute separate commands from script directly with **invoke** thor command. Below is fragment of such script:
 
 ```bash
 #!/bin/sh
@@ -329,6 +331,58 @@ USER_HOME="#{node.home}"
 source $USER_HOME/.rvm/scripts/rvm
 
 rvm install ruby-1.9.3
+```
+
+You can add your own scripts (e.g. demo_scripts.sh):
+
+```ruby
+class LinuxInstall < Thor
+  @installer = LinuxProvision.new self, 
+    ".linux_provision.json", 
+    [File.expand_path("demo_scripts.sh", File.dirname(__FILE__))]
+  ...
+end
+```
+
+We defined 2 new commands in demo_script.sh:
+
+```bash
+#!/bin/sh
+
+##############################
+[project]
+# Installs demo sinatra project
+
+USER_HOME="#{node.home}"
+
+APP_HOME="#{project.home}"
+
+cd $APP_HOME
+
+source $USER_HOME/.rvm/scripts/rvm
+
+rvm use #{project.ruby_version}@#{project.gemset} --create
+
+bundle
+
+rake db:migrate
+
+
+##############################
+[rackup]
+# Starts sinatra demo application
+
+USER_HOME="#{node.home}"
+
+APP_HOME="#{project.home}"
+
+cd $APP_HOME
+
+source $USER_HOME/.rvm/scripts/rvm
+
+rvm use #{project.ruby_version}@#{project.gemset}
+
+rackup
 ```
 
 ## Demo application with Vagrant
@@ -379,7 +433,7 @@ cd demo
 ls # content of demo folder
 ```
 
-These commands from **linux_provision** gem will build your environment for demo project (install dvm, ruby, postgres, postgres user and tables):
+These commands from **linux_provision** gem will build your environment for the demo project (install rvm, ruby, postgres, postgres user and posters tables):
 
 ```bash
 thor linux_install:prepare
@@ -425,9 +479,9 @@ You need to do very similar steps as with Vagrant. The only difference is in **l
 
 Our Dockerfile is responsible for the following base steps:
 
-* Install ubuntu 14.4.
+* Install Ubuntu 14.4.
 
-* Install sshd.
+* Install sshd (for enabling ssh).
 
 * Create vagrant user (just to in-synch with Vagrant example).
 
@@ -487,11 +541,10 @@ You can access virtual machine via ssh:
 
 ```bash
 ssh vagrant@192.168.59.103 -p 42222
-ssh root@192.168.59.103 -p 42222
 ```
 
-Now you can do your provision - it's exactly the same as with Vagrant example:'
-'
+Now you can do your provision - it's exactly the same as with Vagrant example:
+
 ```bash
 thor linux_install:prepare
 thor linux_install:rvm
@@ -507,7 +560,7 @@ thor linux_install:project
 thor linux_install:rackup
 ```
 
-After provision and starting server try to access your application from the browser:
+After provisioning and starting server try to access your application from the browser:
 
 ```bash
 open http://192.168.59.103:9292

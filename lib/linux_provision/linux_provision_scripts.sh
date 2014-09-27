@@ -87,7 +87,7 @@ PATH=$PATH:/usr/local/bin
 APP_USER='#{postgres.app_user}'
 APP_PASSWORD='#{postgres.app_password}'
 
-sudo -u postgres psql -c "CREATE USER $APP_USER WITH PASSWORD '$APP_USER'"
+sudo -u postgres psql -c "CREATE USER $APP_USER WITH PASSWORD '$APP_PASSWORD'"
 
 
 #######################################
